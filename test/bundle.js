@@ -4,6 +4,10 @@ module.exports = pluck;
 var DEFAULT_ATTR    = 'data-pluck';
 var IDENTITY        = function(n) { return n; }
 
+function trim(str) {
+    return str.replace(/^\s+|\s+$/g, '');
+}
+
 function pluck(root, attr, map) {
 
     attr = attr || DEFAULT_ATTR;
@@ -29,7 +33,7 @@ function pluck(root, attr, map) {
         var el = els[i];
         var key = el.getAttribute(attr);
         if (key.indexOf(' ') >= 0) {
-            key.trim().split(/\s+/).forEach(function(k) {
+            trim(key).split(/\s+/).forEach(function(k) {
                 _addOne(k, el);
             });
         } else {
@@ -37,7 +41,7 @@ function pluck(root, attr, map) {
         }
     }
 
-    plucked.root = root;
+    plucked.root = map(root);
 
     return plucked;
 
@@ -1320,15 +1324,12 @@ window.init = function() {
 
         var instance = pluck(document.querySelector('#foo'));
 
-        console.log(instance);
-
         assert.equal(instance.root.id, "foo");
 
         assert.equal(instance.list.nodeName.toLowerCase(), 'ul');
 
         assert.equal(instance.people.length, 3);
 
-        
         assert.equal(instance.a.id, 'a');
         assert.equal(instance.b.id, 'b');
         assert.equal(instance.c.id, 'c');

@@ -3,6 +3,10 @@ module.exports = pluck;
 var DEFAULT_ATTR    = 'data-pluck';
 var IDENTITY        = function(n) { return n; }
 
+function trim(str) {
+    return str.replace(/^\s+|\s+$/g, '');
+}
+
 function pluck(root, attr, map) {
 
     attr = attr || DEFAULT_ATTR;
@@ -28,7 +32,7 @@ function pluck(root, attr, map) {
         var el = els[i];
         var key = el.getAttribute(attr);
         if (key.indexOf(' ') >= 0) {
-            key.trim().split(/\s+/).forEach(function(k) {
+            trim(key).split(/\s+/).forEach(function(k) {
                 _addOne(k, el);
             });
         } else {
