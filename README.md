@@ -54,18 +54,11 @@ Copy and paste either `build/pluck-elements.js` or `build/pluck-elements.min.js`
 
 ## API
 
-#### `pluck(el, attr, map)`
+#### `pluck(el, [attr], [map])`
 
-Converts `html` into a DOM node and plucks all nested elements with the `data-pluck` attribute, inserting them into a dictionary keyed by said value of `[data-pluck]`.
+Find all descendant nodes of `el` with attribute `attr` and add them to an object, keyed by the value of `attr` and optionally mapping each element via callback `map`. The attribute's value may contain a list of whitespace separated values; in this case a key for each distinct value will be created in the output dictionary. Where a key is suffixed with `[]`, e.g. `people[]`, multiple plucked elements sharing the same key will be collected into an array.
 
-`[data-pluck]` may contain a list of whitespace separated values; in this case a key for each distinct value will be created in the output dictionary. Where a key is suffixed with `[]`, e.g. `people[]`, multiple plucked elements sharing the same key will be collected into an array.
-
-Returns the dictionary of plucked elements, including an additional `root` entry for the root element.
-
-Supported `options`:
-
-  * `attribute`: name of attribute used to denote elements to be plucked into the returned structure. Defaults to `data-pluck`.
-  * `mapNode`: a callback that may be used to map each plucked element. Defaults to the identity.
+If unspecified, `attr` defaults to `data-pluck`. `map` defaults to the identity function.
 
 ## Copyright &amp; License
 
