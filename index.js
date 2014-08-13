@@ -36,7 +36,7 @@ function pluck(root, attr, map) {
         }
     }
 
-    plucked.root = root;
+    plucked.root = map(root);
 
     return plucked;
 
